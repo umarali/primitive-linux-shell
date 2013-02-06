@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
 #include <dirent.h>
 
@@ -12,18 +11,8 @@ typedef struct fileinfo FileInfo;
 struct fileinfo {
 	char* name;
 	char* path;
-	char pwd[6];
+	char* pwd;
 };
-
-//////////////////////////////////////* Function Declarations *//////////////////////////////////////
-
-void findMyAbsolutePath();
-char* findMyDirName(char* path);
-char* strCat(char* str, const char* append);
-void setCurrDirName();
-int isPwdProtected(char* filename, char* filepath);
-
-////////////////////////////////////* End Function Declarations *////////////////////////////////////
 
 
 ///////////////////////////////////////* Global Declarations *///////////////////////////////////////
@@ -31,10 +20,22 @@ int isPwdProtected(char* filename, char* filepath);
 static FileInfo **info = NULL;
 static Stack stack;
 static int numFiles = 0;
-char currDirPath[100] = "/home/umarali/Projects/Shell";
+char currDirPath[100];// = "/home/umarali/Projects/Shell";
 char currDirName[25];
 
 /////////////////////////////////////* End Global Declarations */////////////////////////////////////
+
+
+//////////////////////////////////////* Function Declarations *//////////////////////////////////////
+
+void findMyAbsolutePath();
+char* findMyDirName(char* path);
+char* strCat(char* str, const char* append);
+void setCurrDirName();
+void displayPwdProtectedFilesInfo();
+int isPwdProtected(char* filename, char* filepath);
+
+////////////////////////////////////* End Function Declarations *////////////////////////////////////
 
 
 /////////////////////////////////////////////* Stack *///////////////////////////////////////////////
@@ -99,7 +100,7 @@ void display() {
 
 ///////////////////////////////////////////* Core Methods *//////////////////////////////////////////
 
-void cmdLS() {
+void cmdLS(int bool) {
 	/* 1. ls - Show the list of files and directories in the current directory. */
 
 	DIR *dir;
@@ -110,7 +111,7 @@ void cmdLS() {
 		printf("Cannot Open Directory - %s\n", currDirPath);
 	else {
 		while ((dirent = readdir(dir)) != NULL) {
-			if(!isPwdProtected(dirent->d_name, dirent->d_name) && strcmp(dirent->d_name, ".") != 0 && strcmp(dirent->d_name, "..") != 0)
+			if(!isPwdProtected(dirent->d_name, currDirPath) && strcmp(dirent->d_name, ".") != 0 && strcmp(dirent->d_name, "..") != 0)
 				printf("%s\n", dirent->d_name);
 		}
 	}
@@ -194,11 +195,13 @@ void cmdPrivate(char* filename) {
 				fgets(input, sizeof(input), stdin);
 				
 				info[numFiles] = malloc(sizeof(FileInfo));
-				info[numFiles]->name = dirent->d_name;
-				info[numFiles]->path = currDirPath;
-				sprintf(info[numFiles]->pwd, "%s", input);
+				info[numFiles]->name = malloc(sizeof(char*));
+				info[numFiles]->path = malloc(sizeof(char*));
+				info[numFiles]->pwd = malloc(sizeof(char*));
 
-				printf("%s is now protected.\n", filename);
+				sprintf(info[numFiles]->name, "%s", dirent->d_name);
+				sprintf(info[numFiles]->path, "%s", currDirPath);
+				sprintf(info[numFiles]->pwd, "%s", input);
 
 				numFiles++;
 				free(input);
@@ -222,7 +225,7 @@ void cmdPrivate(char* filename) {
 void findMyAbsolutePath() {
 	const char* up = "/..";
 	char* path = ".",
-		* name = findMyDirName(path),
+		* name,
 		**arr;
 	int limit = 10,
 		i = 0;
@@ -233,10 +236,12 @@ void findMyAbsolutePath() {
 		*(arr+i) = malloc(sizeof(char*));
 
 	i = 0;
-	name[strlen(name) - 1] = '\0';
+	name = findMyDirName(path);
+	//name[strlen(name) - 1] = '\0';
 
 	do {
 		path = strCat(path, up);
+		printf("%s\n", name);
 		sprintf(*(arr+i), "%s", name);
 		i++;
 	} while((name = findMyDirName(path)) != NULL && i < limit);
@@ -246,16 +251,17 @@ void findMyAbsolutePath() {
 	int j = 0;
 	strcpy(currDirPath, "");
 
-	for(j = i; j >= 0; j--)
-		strcpy(currDirPath, strCat(currDirPath, strCat("/", (const char*) *(arr + j))));
+	for(j = i; j >= 0; j--){
+		char* p = strCat(currDirPath, strCat("/", (const char*) *(arr + j)));
+		strcpy(currDirPath, p);
+		free(p);
+	}
 
 	/* Frees the memory */
 	//for(i = 0; i < limit; i++)
 		//free(*(arr+i));
 	free(arr);
 	arr = NULL;
-
-
 }
 
 char* findMyDirName(char* path) {
@@ -312,12 +318,20 @@ int isPwdProtected(char* filename, char* filepath) {
 	int i;
 
 	for(i = 0; i < numFiles; i++) {
-		if(strcmp(info[i]->name, filename) == 0) {
+		if(strcmp(info[i]->name, filename) == 0) {// && strcmp(info[i]->path, filepath) == 0) {
 			return 1;
 		}
 	}
 
 	return 0;
+}
+
+void displayPwdProtectedFilesInfo() {
+	int i = 0;
+
+	for(i = 0; i < numFiles; i++) {
+		printf("%s %s\n", info[i]->name, info[i]->path);
+	}
 }
 
 void setCurrDirName() {
@@ -340,8 +354,9 @@ void setCurrDirName() {
 
 void main() {
 
+	//printf("%s\n", findMyDirName("."));
 	/* Sets absolute path of the current directory */
-	//findMyAbsolutePath();
+	findMyAbsolutePath();
 	/* Sets the current directory name */
 	setCurrDirName();
 
@@ -368,7 +383,12 @@ void main() {
 		sprintf(cmd, "%s", strtok(input, delim));
 		
 		if(strcmp(cmd, "ls") == 0) {
-			cmdLS();
+			int bool = 0;
+			char* str = strtok(NULL, delim);
+			if(str && strcmp(str, "-private"))
+				bool = 1;
+
+			cmdLS(bool);
 		}
 		else if(strcmp(cmd, "cd") == 0) {
 			cmdCD(strtok(NULL, delim));
@@ -388,7 +408,13 @@ void main() {
 		else if(strcmp(cmd, "exit") == 0) {
 			break;
 		}
+		else {
+			printf("Error: No such command found\n");
+			break;
+		}
 	}
+
+	//displayPwdProtectedFilesInfo();
 
 }
 
