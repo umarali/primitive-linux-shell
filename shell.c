@@ -3,7 +3,7 @@
 #include <string.h>
 #include <dirent.h>
 
-
+/* Found at > source: http://stanford.io/14ElVhr */
 typedef struct node Node;
 typedef struct stack Stack;
 typedef struct fileinfo FileInfo;
@@ -26,7 +26,7 @@ char currDirName[25];
 /////////////////////////////////////* End Global Declarations */////////////////////////////////////
 
 
-//////////////////////////////////////* Helper Functions Declarations *//////////////////////////////////////
+//////////////////////////////////* Helper Function Declarations *//////////////////////////////////
 
 void findMyAbsolutePath();
 char* findMyDirName(char* path);
@@ -36,7 +36,7 @@ void displayPwdProtectedFilesInfo();
 int isPwdProtected(char* filename, char* filepath);
 int validatePassword(char* pwd);
 
-////////////////////////////////////* End Helper Function Declarations *////////////////////////////////////
+/////////////////////////////////* End Helper Function Declarations *////////////////////////////////
 
 
 /////////////////////////////////////////////* Stack *///////////////////////////////////////////////
@@ -109,7 +109,7 @@ void cmdLS(int bool) {
 	dir = opendir(currDirPath);
 
 	if(dir == NULL)
-		printf("Cannot Open Directory - %s\n", currDirPath);
+		printf("Error: Cannot Open Directory - %s\n", currDirPath);
 	else {
 		/* Invokes for password, to show password protected files */
 		if(bool) {
@@ -145,19 +145,36 @@ void cmdCD(char* path) {
 		return;
 	}
 
-	DIR *dir;
+	DIR* currDir,
+	   * absDir;
 	struct dirent *dirent;
-	dir = opendir(path);
+	char newPath[100];
 
-	if(dir == NULL)
-		printf("Error: Invalid Directory - %s\n", path);
+	sprintf(newPath, "%s/%s", currDirPath, path);
+	/* Check for current path */
+	currDir = opendir(newPath);
+
+	if(currDir == NULL) {
+		/* Check for absolute path */
+		absDir = opendir(path);
+
+		if(absDir == NULL) {
+			printf("Error: Invalid Directory - %s\n", path);
+		}
+		else {
+			sprintf(currDirPath, "%s", path);
+			/* Updates the directory name */
+			setCurrDirName();
+			closedir(absDir);
+		}
+	}
 	else {
-		sprintf(currDirPath, "%s", path);
+		sprintf(currDirPath, "%s/%s", currDirPath, path);
 		/* Updates the directory name */
 		setCurrDirName();
 	}
 
-	closedir(dir);
+	closedir(currDir);
 }
 
 void cmdPWD() {
@@ -169,7 +186,11 @@ void cmdPWD() {
 void cmdPUSH(char* path) {
 	/* 4. push - Push the current directory on to the stack and move to the new directory. */
 
-	//printf("push %s and cd %s\n", currDirPath, path);
+	if(!path){
+		printf("Error: No path specified\n");
+		return;
+	}
+
 	push(currDirPath);
 	/* Changes the directory */
 	cmdCD(path);
@@ -179,7 +200,7 @@ void cmdPOP() {
 	/* 5. pop - Pop the directory from the stack and go to that directory. */
 
 	Node* n = pop();
-	//printf("pop and cd %s\n", n->data);
+
 	if(n){
 		/* Changes the directory */
 		cmdCD(n->data);
@@ -271,14 +292,17 @@ void findMyAbsolutePath() {
 	strcpy(currDirPath, "");
 
 	for(j = i; j >= 0; j--){
-		char* p = strCat(currDirPath, strCat("/", (const char*) *(arr + j)));
-		strcpy(currDirPath, p);
-		free(p);
+		char* ptr = strCat(currDirPath, strCat("/", (const char*) *(arr + j)));
+		strcpy(currDirPath, ptr);
+		free(ptr);
 	}
 
+	//name = findMyDirName(".");
+	//sprintf(currDirPath, "%s%s", currDirPath, name);
+	
 	/* Frees the memory */
-	//for(i = 0; i < limit; i++)
-		//free(*(arr+i));
+	for(i = 0; i < limit; i++)
+		free(*(arr+i));
 	free(arr);
 	arr = NULL;
 }
@@ -409,6 +433,8 @@ void main() {
 		 * Replaced scanf with fgets > source: http://bit.ly/Sz6Cob
 		 */
 		fgets(input, sizeof(input), stdin);
+
+		if(!input) break;
 
 		/* Tokenizes command from input */
 		sprintf(cmd, "%s", strtok(input, delim));
