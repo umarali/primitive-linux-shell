@@ -26,7 +26,7 @@ char currDirName[25];
 /////////////////////////////////////* End Global Declarations */////////////////////////////////////
 
 
-//////////////////////////////////////* Function Declarations *//////////////////////////////////////
+//////////////////////////////////////* Helper Functions Declarations *//////////////////////////////////////
 
 void findMyAbsolutePath();
 char* findMyDirName(char* path);
@@ -34,8 +34,9 @@ char* strCat(char* str, const char* append);
 void setCurrDirName();
 void displayPwdProtectedFilesInfo();
 int isPwdProtected(char* filename, char* filepath);
+int validatePassword(char* pwd);
 
-////////////////////////////////////* End Function Declarations *////////////////////////////////////
+////////////////////////////////////* End Helper Function Declarations *////////////////////////////////////
 
 
 /////////////////////////////////////////////* Stack *///////////////////////////////////////////////
@@ -110,9 +111,27 @@ void cmdLS(int bool) {
 	if(dir == NULL)
 		printf("Cannot Open Directory - %s\n", currDirPath);
 	else {
-		while ((dirent = readdir(dir)) != NULL) {
-			if(!isPwdProtected(dirent->d_name, currDirPath) && strcmp(dirent->d_name, ".") != 0 && strcmp(dirent->d_name, "..") != 0)
-				printf("%s\n", dirent->d_name);
+		/* Invokes for password, to show password protected files */
+		if(bool) {
+			char* pwd = malloc(sizeof(char*));
+
+			printf("Password: ");
+			fgets(pwd, sizeof(pwd), stdin);
+
+			if(validatePassword(pwd)) {
+				while ((dirent = readdir(dir)) != NULL) {
+					if(strcmp(dirent->d_name, ".") != 0 && strcmp(dirent->d_name, "..") != 0)
+						printf("%s\n", dirent->d_name);
+				}
+			}
+
+			free(pwd);
+		}
+		else {
+			while ((dirent = readdir(dir)) != NULL) {
+				if(!isPwdProtected(dirent->d_name, currDirPath) && strcmp(dirent->d_name, ".") != 0 && strcmp(dirent->d_name, "..") != 0)
+					printf("%s\n", dirent->d_name);
+			}
 		}
 	}
 	closedir(dir);
@@ -225,7 +244,7 @@ void cmdPrivate(char* filename) {
 void findMyAbsolutePath() {
 	const char* up = "/..";
 	char* path = ".",
-		* name,
+		* name = findMyDirName(path),
 		**arr;
 	int limit = 10,
 		i = 0;
@@ -236,12 +255,12 @@ void findMyAbsolutePath() {
 		*(arr+i) = malloc(sizeof(char*));
 
 	i = 0;
-	name = findMyDirName(path);
+	//name = findMyDirName(path);
 	//name[strlen(name) - 1] = '\0';
 
 	do {
 		path = strCat(path, up);
-		printf("%s\n", name);
+		//printf("%s\n", name);
 		sprintf(*(arr+i), "%s", name);
 		i++;
 	} while((name = findMyDirName(path)) != NULL && i < limit);
@@ -326,6 +345,18 @@ int isPwdProtected(char* filename, char* filepath) {
 	return 0;
 }
 
+int validatePassword(char* pwd) {
+	int i;
+
+	for(i = 0; i < numFiles; i++) {
+		if(strcmp(info[i]->pwd, pwd) == 0 && strcmp(info[i]->path, currDirPath) == 0 ) {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
 void displayPwdProtectedFilesInfo() {
 	int i = 0;
 
@@ -385,8 +416,10 @@ void main() {
 		if(strcmp(cmd, "ls") == 0) {
 			int bool = 0;
 			char* str = strtok(NULL, delim);
-			if(str && strcmp(str, "-private"))
+
+			if(str && strcmp(str, "-private") == 0) {
 				bool = 1;
+			}
 
 			cmdLS(bool);
 		}
@@ -410,11 +443,18 @@ void main() {
 		}
 		else {
 			printf("Error: No such command found\n");
-			break;
 		}
 	}
 
 	//displayPwdProtectedFilesInfo();
+	/* Frees memory */
+	free(cmd);
+
+	int i;
+
+	for (i = 0; i < numFiles; i++)
+		free(info[i]);
+	free(info);
 
 }
 

@@ -1,568 +1,573 @@
-==25449== Memcheck, a memory error detector
-==25449== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
-==25449== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
-==25449== Command: /home/umarali/Projects/Shell/shell
-==25449== Parent PID: 2927
-==25449== 
---25449-- 
---25449-- Valgrind options:
---25449--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
---25449--    -v
---25449--    --tool=memcheck
---25449--    --leak-check=full
---25449--    --num-callers=40
---25449--    --log-file=valgrind.log
---25449-- Contents of /proc/version:
---25449--   Linux version 3.2.0-29-generic (buildd@allspice) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ) #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012
---25449-- Arch and hwcaps: AMD64, amd64-sse3-cx16
---25449-- Page sizes: currently 4096, max supported 4096
---25449-- Valgrind library directory: /usr/lib/valgrind
---25449-- Reading syms from /home/umarali/Projects/Shell/shell (0x400000)
---25449-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
---25449--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
---25449--   .. CRC mismatch (computed eabdc7b7 wanted 3ee54b4e)
---25449--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
---25449--   .. CRC is valid
---25449-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
---25449--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
---25449--   .. CRC mismatch (computed b9a585cc wanted 749d1a67)
---25449--    object doesn't have a symbol table
---25449--    object doesn't have a dynamic symbol table
---25449-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
---25449-- Reading suppressions file: /usr/lib/valgrind/default.supp
-==25449== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-25449-by-umarali-on-???
-==25449== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-25449-by-umarali-on-???
-==25449== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-25449-by-umarali-on-???
-==25449== 
-==25449== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==25449== don't want to do, unless you know exactly what you're doing,
-==25449== or are doing some strange experiment):
-==25449==   /usr/lib/valgrind/../../bin/vgdb --pid=25449 ...command...
-==25449== 
-==25449== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==25449==   /path/to/gdb /home/umarali/Projects/Shell/shell
-==25449== and then give GDB the following command
-==25449==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=25449
-==25449== --pid is optional if only one valgrind process is running
-==25449== 
---25449-- REDIR: 0x40189e0 (strlen) redirected to 0x380625c7 (???)
---25449-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
---25449--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
---25449--   .. CRC mismatch (computed c82927cb wanted 1861273b)
---25449--    object doesn't have a symbol table
---25449-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
---25449--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
---25449--   .. CRC mismatch (computed 72e29ec9 wanted f3ad49da)
---25449--    object doesn't have a symbol table
---25449-- REDIR: 0x4018850 (index) redirected to 0x4c2bc60 (index)
---25449-- REDIR: 0x40188d0 (strcmp) redirected to 0x4c2cc20 (strcmp)
---25449-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x4e32000)
---25449--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
---25449--   .. CRC mismatch (computed 3af7ebbf wanted 50fc58fa)
---25449--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
---25449--   .. CRC is valid
---25449-- REDIR: 0x4ebee30 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---25449-- REDIR: 0x4ebb1d0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---25449-- REDIR: 0x4ec1100 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---25449-- REDIR: 0x4ebcbc0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
---25449-- REDIR: 0x4eb4f40 (malloc) redirected to 0x4c2b660 (malloc)
---25449-- REDIR: 0x4ebb0f0 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
---25449-- REDIR: 0x4eb95b0 (strcmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---25449-- REDIR: 0x4f63e10 (__strcmp_sse42) redirected to 0x4c2cb60 (strcmp)
---25449-- REDIR: 0x4eb5580 (free) redirected to 0x4c2a7c0 (free)
---25449-- REDIR: 0x4ec4d00 (strchrnul) redirected to 0x4c2e3b0 (strchrnul)
-==25449== Invalid read of size 1
-==25449==    at 0x4C2BFC2: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EA2CEB: puts (ioputs.c:37)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cb is 283 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4C2BFD4: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EA2CEB: puts (ioputs.c:37)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cc is 284 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4EAE132: _IO_default_xsputn (genops.c:485)
-==25449==    by 0x4EAC069: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1393)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cb is 283 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
---25449-- REDIR: 0x4ebaa40 (strcpy) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---25449-- REDIR: 0x4ec8b60 (__strcpy_sse2_unaligned) redirected to 0x4c2bfe0 (strcpy)
-==25449== Invalid read of size 1
-==25449==    at 0x4C2BFE7: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F7A: findMyAbsolutePath (shell.c:245)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cb is 283 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F7A: findMyAbsolutePath (shell.c:245)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cc is 284 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC184: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x520996a is 826 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC199: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5209969 is 825 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC100: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1362)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5209963 is 819 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC10E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1361)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5209965 is 821 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid write of size 1
-==25449==    at 0x4C2C00F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F7A: findMyAbsolutePath (shell.c:245)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f1128 is 0 bytes after a block of size 8 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F12: findMyAbsolutePath (shell.c:236)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid write of size 1
-==25449==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x4010E5: findMyDirName (shell.c:290)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5239a70 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x4010E5: findMyDirName (shell.c:290)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Syscall param openat(filename) points to unaddressable byte(s)
-==25449==    at 0x4F18710: __openat_nocancel (openat.c:96)
-==25449==    by 0x4EED5D4: __opendirat (opendir.c:125)
-==25449==    by 0x4010F5: findMyDirName (shell.c:291)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5239a70 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x4010E5: findMyDirName (shell.c:290)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4E7D3B1: vfprintf (vfprintf.c:1630)
-==25449==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FDA: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f1128 is 0 bytes after a block of size 8 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F12: findMyAbsolutePath (shell.c:236)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid write of size 1
-==25449==    at 0x4EAE10C: _IO_default_xsputn (genops.c:480)
-==25449==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
-==25449==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241cc0 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid write of size 1
-==25449==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241cc6 is 6 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid read of size 1
-==25449==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400FFC: findMyAbsolutePath (shell.c:256)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241cc0 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== Invalid write of size 8
-==25449==    at 0x4EBE81A: __GI_mempcpy (memcpy.S:126)
-==25449==    by 0x4EAE15D: _IO_default_xsputn (genops.c:468)
-==25449==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
-==25449==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241d5e is 14 bytes inside a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== Process terminating with default action of signal 2 (SIGINT)
-==25449==    at 0x4F188A0: __read_nocancel (syscall-template.S:82)
-==25449==    by 0x4EACFF7: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:619)
-==25449==    by 0x4EAE03D: _IO_default_uflow (genops.c:440)
-==25449==    by 0x4EA2189: _IO_getline_info (iogetline.c:74)
-==25449==    by 0x4EA106A: fgets (iofgets.c:58)
-==25449==    by 0x4013D7: main (shell.c:380)
-==25449== 
-==25449== HEAP SUMMARY:
-==25449==     in use at exit: 216 bytes in 19 blocks
-==25449==   total heap usage: 39 allocs, 20 frees, 328,520 bytes allocated
-==25449== 
-==25449== Searching for pointers to 19 not-freed blocks
-==25449== Checked 77,488 bytes
-==25449== 
-==25449== 64 bytes in 4 blocks are definitely lost in loss record 2 of 4
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400F4B: findMyAbsolutePath (shell.c:243)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 64 bytes in 4 blocks are definitely lost in loss record 3 of 4
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FDA: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 80 bytes in 10 blocks are definitely lost in loss record 4 of 4
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F12: findMyAbsolutePath (shell.c:236)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== LEAK SUMMARY:
-==25449==    definitely lost: 208 bytes in 18 blocks
-==25449==    indirectly lost: 0 bytes in 0 blocks
-==25449==      possibly lost: 0 bytes in 0 blocks
-==25449==    still reachable: 8 bytes in 1 blocks
-==25449==         suppressed: 0 bytes in 0 blocks
-==25449== Reachable blocks (those to which a pointer was found) are not shown.
-==25449== To see them, rerun with: --leak-check=full --show-reachable=yes
-==25449== 
-==25449== ERROR SUMMARY: 141 errors from 20 contexts (suppressed: 2 from 2)
-==25449== 
-==25449== 1 errors in context 1 of 20:
-==25449== Invalid write of size 8
-==25449==    at 0x4EBE81A: __GI_mempcpy (memcpy.S:126)
-==25449==    by 0x4EAE15D: _IO_default_xsputn (genops.c:468)
-==25449==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
-==25449==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241d5e is 14 bytes inside a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 1 errors in context 2 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4E7D3B1: vfprintf (vfprintf.c:1630)
-==25449==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FDA: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f1128 is 0 bytes after a block of size 8 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F12: findMyAbsolutePath (shell.c:236)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 1 errors in context 3 of 20:
-==25449== Syscall param openat(filename) points to unaddressable byte(s)
-==25449==    at 0x4F18710: __openat_nocancel (openat.c:96)
-==25449==    by 0x4EED5D4: __opendirat (opendir.c:125)
-==25449==    by 0x4010F5: findMyDirName (shell.c:291)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5239a70 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x4010E5: findMyDirName (shell.c:290)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 1 errors in context 4 of 20:
-==25449== Invalid write of size 1
-==25449==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x4010E5: findMyDirName (shell.c:290)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5239a70 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x4010E5: findMyDirName (shell.c:290)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 1 errors in context 5 of 20:
-==25449== Invalid write of size 1
-==25449==    at 0x4C2C00F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F7A: findMyAbsolutePath (shell.c:245)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f1128 is 0 bytes after a block of size 8 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F12: findMyAbsolutePath (shell.c:236)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 2 errors in context 6 of 20:
-==25449== Invalid write of size 1
-==25449==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241cc6 is 6 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 3 errors in context 7 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC184: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x520996a is 826 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 4 errors in context 8 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4C2BFE7: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F7A: findMyAbsolutePath (shell.c:245)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cb is 283 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 4 errors in context 9 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4C2BFC2: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EA2CEB: puts (ioputs.c:37)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cb is 283 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 5 errors in context 10 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4EAE132: _IO_default_xsputn (genops.c:485)
-==25449==    by 0x4EAC069: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1393)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cb is 283 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 7 errors in context 11 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC10E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1361)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5209965 is 821 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 12 errors in context 12 of 20:
-==25449== Invalid write of size 1
-==25449==    at 0x4EAE10C: _IO_default_xsputn (genops.c:480)
-==25449==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
-==25449==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
-==25449==    by 0x4E85A06: sprintf (sprintf.c:34)
-==25449==    by 0x4011C0: strCat (shell.c:312)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241cc0 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 12 errors in context 13 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC100: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1362)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5209963 is 819 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 16 errors in context 14 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4EAC199: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
-==25449==    by 0x4EA2D78: puts (ioputs.c:42)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5209969 is 825 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F8A: findMyAbsolutePath (shell.c:247)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 20 errors in context 15 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400FFC: findMyAbsolutePath (shell.c:256)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x5241cc0 is 0 bytes after a block of size 16 alloc'd
-==25449==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x40119E: strCat (shell.c:311)
-==25449==    by 0x400FE7: findMyAbsolutePath (shell.c:255)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 24 errors in context 16 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x400F7A: findMyAbsolutePath (shell.c:245)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cc is 284 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
-==25449== 
-==25449== 24 errors in context 17 of 20:
-==25449== Invalid read of size 1
-==25449==    at 0x4C2BFD4: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EA2CEB: puts (ioputs.c:37)
-==25449==    by 0x400F5B: findMyAbsolutePath (shell.c:244)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449==  Address 0x51f95cc is 284 bytes inside a block of size 32,808 free'd
-==25449==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==25449==    by 0x4EED61C: closedir (closedir.c:52)
-==25449==    by 0x40117E: findMyDirName (shell.c:302)
-==25449==    by 0x400F34: findMyAbsolutePath (shell.c:239)
-==25449==    by 0x40134D: main (shell.c:359)
-==25449== 
---25449-- 
---25449-- used_suppression:      2 dl-hack3-cond-1
-==25449== 
-==25449== ERROR SUMMARY: 141 errors from 20 contexts (suppressed: 2 from 2)
+==32735== Memcheck, a memory error detector
+==32735== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==32735== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==32735== Command: /home/umarali/Projects/Shell/shell
+==32735== Parent PID: 32627
+==32735== 
+--32735-- 
+--32735-- Valgrind options:
+--32735--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
+--32735--    -v
+--32735--    --tool=memcheck
+--32735--    --leak-check=full
+--32735--    --num-callers=40
+--32735--    --log-file=valgrind.log
+--32735-- Contents of /proc/version:
+--32735--   Linux version 3.2.0-29-generic (buildd@allspice) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ) #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012
+--32735-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--32735-- Page sizes: currently 4096, max supported 4096
+--32735-- Valgrind library directory: /usr/lib/valgrind
+--32735-- Reading syms from /home/umarali/Projects/Shell/shell (0x400000)
+--32735-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
+--32735--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
+--32735--   .. CRC mismatch (computed eabdc7b7 wanted 3ee54b4e)
+--32735--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
+--32735--   .. CRC is valid
+--32735-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
+--32735--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--32735--   .. CRC mismatch (computed b9a585cc wanted 749d1a67)
+--32735--    object doesn't have a symbol table
+--32735--    object doesn't have a dynamic symbol table
+--32735-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
+--32735-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==32735== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-32735-by-umarali-on-???
+==32735== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-32735-by-umarali-on-???
+==32735== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-32735-by-umarali-on-???
+==32735== 
+==32735== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==32735== don't want to do, unless you know exactly what you're doing,
+==32735== or are doing some strange experiment):
+==32735==   /usr/lib/valgrind/../../bin/vgdb --pid=32735 ...command...
+==32735== 
+==32735== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==32735==   /path/to/gdb /home/umarali/Projects/Shell/shell
+==32735== and then give GDB the following command
+==32735==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=32735
+==32735== --pid is optional if only one valgrind process is running
+==32735== 
+--32735-- REDIR: 0x40189e0 (strlen) redirected to 0x380625c7 (???)
+--32735-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
+--32735--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--32735--   .. CRC mismatch (computed c82927cb wanted 1861273b)
+--32735--    object doesn't have a symbol table
+--32735-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
+--32735--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--32735--   .. CRC mismatch (computed 72e29ec9 wanted f3ad49da)
+--32735--    object doesn't have a symbol table
+--32735-- REDIR: 0x4018850 (index) redirected to 0x4c2bc60 (index)
+--32735-- REDIR: 0x40188d0 (strcmp) redirected to 0x4c2cc20 (strcmp)
+--32735-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x4e32000)
+--32735--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
+--32735--   .. CRC mismatch (computed 3af7ebbf wanted 50fc58fa)
+--32735--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
+--32735--   .. CRC is valid
+--32735-- REDIR: 0x4ebee30 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--32735-- REDIR: 0x4ebb1d0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--32735-- REDIR: 0x4ec1100 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--32735-- REDIR: 0x4ebcbc0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
+--32735-- REDIR: 0x4eb4f40 (malloc) redirected to 0x4c2b660 (malloc)
+--32735-- REDIR: 0x4ebb0f0 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
+--32735-- REDIR: 0x4eb95b0 (strcmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--32735-- REDIR: 0x4f63e10 (__strcmp_sse42) redirected to 0x4c2cb60 (strcmp)
+--32735-- REDIR: 0x4eb5580 (free) redirected to 0x4c2a7c0 (free)
+--32735-- REDIR: 0x4ec4d00 (strchrnul) redirected to 0x4c2e3b0 (strchrnul)
+==32735== Invalid read of size 1
+==32735==    at 0x4C2BFC2: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EA2CEB: puts (ioputs.c:37)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961b is 283 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4C2BFD4: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EA2CEB: puts (ioputs.c:37)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961c is 284 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4EAE132: _IO_default_xsputn (genops.c:485)
+==32735==    by 0x4EAC069: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1393)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961b is 283 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+--32735-- REDIR: 0x4ebaa40 (strcpy) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--32735-- REDIR: 0x4ec8b60 (__strcpy_sse2_unaligned) redirected to 0x4c2bfe0 (strcpy)
+==32735== Invalid read of size 1
+==32735==    at 0x4C2BFE7: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F88: findMyAbsolutePath (shell.c:246)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961b is 283 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F88: findMyAbsolutePath (shell.c:246)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961c is 284 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC184: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099ba is 826 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC199: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099b9 is 825 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC100: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1362)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099b3 is 819 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC10E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1361)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099b5 is 821 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid write of size 1
+==32735==    at 0x4C2C00F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F88: findMyAbsolutePath (shell.c:246)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f1178 is 0 bytes after a block of size 8 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F20: findMyAbsolutePath (shell.c:237)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid write of size 1
+==32735==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x4010F3: findMyDirName (shell.c:291)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5239ac0 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x4010F3: findMyDirName (shell.c:291)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Syscall param openat(filename) points to unaddressable byte(s)
+==32735==    at 0x4F18710: __openat_nocancel (openat.c:96)
+==32735==    by 0x4EED5D4: __opendirat (opendir.c:125)
+==32735==    by 0x401103: findMyDirName (shell.c:292)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5239ac0 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x4010F3: findMyDirName (shell.c:291)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4E7D3B1: vfprintf (vfprintf.c:1630)
+==32735==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FE8: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f1178 is 0 bytes after a block of size 8 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F20: findMyAbsolutePath (shell.c:237)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid write of size 1
+==32735==    at 0x4EAE10C: _IO_default_xsputn (genops.c:480)
+==32735==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
+==32735==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241d10 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid write of size 1
+==32735==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241d16 is 6 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid read of size 1
+==32735==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x40100A: findMyAbsolutePath (shell.c:257)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241d10 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== Invalid write of size 8
+==32735==    at 0x4EBE81A: __GI_mempcpy (memcpy.S:126)
+==32735==    by 0x4EAE15D: _IO_default_xsputn (genops.c:468)
+==32735==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
+==32735==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241dae is 14 bytes inside a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== Process terminating with default action of signal 2 (SIGINT)
+==32735==    at 0x4F188A0: __read_nocancel (syscall-template.S:82)
+==32735==    by 0x4EACFF7: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:619)
+==32735==    by 0x4EAE03D: _IO_default_uflow (genops.c:440)
+==32735==    by 0x4EA2189: _IO_getline_info (iogetline.c:74)
+==32735==    by 0x4EA106A: fgets (iofgets.c:58)
+==32735==    by 0x4013E5: main (shell.c:381)
+==32735== 
+==32735== HEAP SUMMARY:
+==32735==     in use at exit: 224 bytes in 20 blocks
+==32735==   total heap usage: 40 allocs, 20 frees, 328,528 bytes allocated
+==32735== 
+==32735== Searching for pointers to 20 not-freed blocks
+==32735== Checked 77,568 bytes
+==32735== 
+==32735== 8 bytes in 1 blocks are definitely lost in loss record 2 of 5
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400EF9: findMyAbsolutePath (shell.c:234)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 64 bytes in 4 blocks are definitely lost in loss record 3 of 5
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400F59: findMyAbsolutePath (shell.c:244)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 64 bytes in 4 blocks are definitely lost in loss record 4 of 5
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FE8: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 80 bytes in 10 blocks are definitely lost in loss record 5 of 5
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F20: findMyAbsolutePath (shell.c:237)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== LEAK SUMMARY:
+==32735==    definitely lost: 216 bytes in 19 blocks
+==32735==    indirectly lost: 0 bytes in 0 blocks
+==32735==      possibly lost: 0 bytes in 0 blocks
+==32735==    still reachable: 8 bytes in 1 blocks
+==32735==         suppressed: 0 bytes in 0 blocks
+==32735== Reachable blocks (those to which a pointer was found) are not shown.
+==32735== To see them, rerun with: --leak-check=full --show-reachable=yes
+==32735== 
+==32735== ERROR SUMMARY: 142 errors from 21 contexts (suppressed: 2 from 2)
+==32735== 
+==32735== 1 errors in context 1 of 21:
+==32735== Invalid write of size 8
+==32735==    at 0x4EBE81A: __GI_mempcpy (memcpy.S:126)
+==32735==    by 0x4EAE15D: _IO_default_xsputn (genops.c:468)
+==32735==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
+==32735==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241dae is 14 bytes inside a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 1 errors in context 2 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4E7D3B1: vfprintf (vfprintf.c:1630)
+==32735==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FE8: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f1178 is 0 bytes after a block of size 8 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F20: findMyAbsolutePath (shell.c:237)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 1 errors in context 3 of 21:
+==32735== Syscall param openat(filename) points to unaddressable byte(s)
+==32735==    at 0x4F18710: __openat_nocancel (openat.c:96)
+==32735==    by 0x4EED5D4: __opendirat (opendir.c:125)
+==32735==    by 0x401103: findMyDirName (shell.c:292)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5239ac0 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x4010F3: findMyDirName (shell.c:291)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 1 errors in context 4 of 21:
+==32735== Invalid write of size 1
+==32735==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x4010F3: findMyDirName (shell.c:291)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5239ac0 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x4010F3: findMyDirName (shell.c:291)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 1 errors in context 5 of 21:
+==32735== Invalid write of size 1
+==32735==    at 0x4C2C00F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F88: findMyAbsolutePath (shell.c:246)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f1178 is 0 bytes after a block of size 8 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F20: findMyAbsolutePath (shell.c:237)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 2 errors in context 6 of 21:
+==32735== Invalid write of size 1
+==32735==    at 0x4EA3822: vsprintf (iovsprintf.c:44)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241d16 is 6 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 3 errors in context 7 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC184: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099ba is 826 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 4 errors in context 8 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4C2BFE7: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F88: findMyAbsolutePath (shell.c:246)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961b is 283 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 4 errors in context 9 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4C2BFC2: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EA2CEB: puts (ioputs.c:37)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961b is 283 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 5 errors in context 10 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4EAE132: _IO_default_xsputn (genops.c:485)
+==32735==    by 0x4EAC069: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1393)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961b is 283 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 7 errors in context 11 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC10E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1361)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099b5 is 821 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 12 errors in context 12 of 21:
+==32735== Invalid write of size 1
+==32735==    at 0x4EAE10C: _IO_default_xsputn (genops.c:480)
+==32735==    by 0x4E7CF81: vfprintf (vfprintf.c:1630)
+==32735==    by 0x4EA3813: vsprintf (iovsprintf.c:43)
+==32735==    by 0x4E85A06: sprintf (sprintf.c:34)
+==32735==    by 0x4011CE: strCat (shell.c:313)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241d10 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 12 errors in context 13 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC100: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1362)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099b3 is 819 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 16 errors in context 14 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4EAC199: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1330)
+==32735==    by 0x4EA2D78: puts (ioputs.c:42)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x52099b9 is 825 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F98: findMyAbsolutePath (shell.c:248)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 20 errors in context 15 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x40100A: findMyAbsolutePath (shell.c:257)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x5241d10 is 0 bytes after a block of size 16 alloc'd
+==32735==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4011AC: strCat (shell.c:312)
+==32735==    by 0x400FF5: findMyAbsolutePath (shell.c:256)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 24 errors in context 16 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4C2C002: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x400F88: findMyAbsolutePath (shell.c:246)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961c is 284 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+==32735== 
+==32735== 24 errors in context 17 of 21:
+==32735== Invalid read of size 1
+==32735==    at 0x4C2BFD4: __GI_strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EA2CEB: puts (ioputs.c:37)
+==32735==    by 0x400F69: findMyAbsolutePath (shell.c:245)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735==  Address 0x51f961c is 284 bytes inside a block of size 32,808 free'd
+==32735==    at 0x4C2A82E: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32735==    by 0x4EED61C: closedir (closedir.c:52)
+==32735==    by 0x40118C: findMyDirName (shell.c:303)
+==32735==    by 0x400F42: findMyAbsolutePath (shell.c:240)
+==32735==    by 0x40135B: main (shell.c:360)
+==32735== 
+--32735-- 
+--32735-- used_suppression:      2 dl-hack3-cond-1
+==32735== 
+==32735== ERROR SUMMARY: 142 errors from 21 contexts (suppressed: 2 from 2)
